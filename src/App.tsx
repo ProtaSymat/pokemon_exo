@@ -11,7 +11,7 @@ interface Card {
   }
 }
 
-interface CardProps {
+interface CardProps{
   card: Card
   openModal: (card: Card) => void
 }
