@@ -1,10 +1,25 @@
 import React, { useState, useEffect } from "react";
 
-interface ModalProps {
-  card: any;
-  onClose: () => void;
+interface Attack {
+  name: string;
+  damage: string;
+  cost: string[];
 }
 
+interface Card {
+  images: {
+    large: string;
+  };
+  name: string;
+  hp: string;
+  types?: string[];
+  attacks?: Attack[];
+}
+
+interface ModalProps {
+  card: Card | null;
+  onClose: () => void;
+}
 const Modal: React.FC<ModalProps> = ({ card, onClose }) => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -29,9 +44,7 @@ const Modal: React.FC<ModalProps> = ({ card, onClose }) => {
         className={`modal-content ${isVisible ? "modal-slide-in" : "modal-slide-out"}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <button className="modal-close" onClick={handleClose}>
-          ×
-        </button>
+        <button className="modal-close" onClick={handleClose}>×</button>
         <div className="modal-body">
           <div className="modal-card">
             <div className="card-inner">
@@ -39,10 +52,7 @@ const Modal: React.FC<ModalProps> = ({ card, onClose }) => {
                 <img src={card.images.large} alt={card.name} />
               </div>
               <div className="card-back">
-                <img
-                  src="./assets/pokemon_back_card.png"
-                  alt="Verso de la carte"
-                />
+                <img src="./assets/pokemon_back_card.png" alt="Verso de la carte" />
               </div>
             </div>
           </div>
@@ -54,10 +64,9 @@ const Modal: React.FC<ModalProps> = ({ card, onClose }) => {
             <p><strong>Attaques :</strong></p>
             {card.attacks ? (
               <ul>
-                {card.attacks.map((attack: any, index: number) => (
+                {card.attacks.map((attack, index) => (
                   <li key={index}>
-                    <strong>{attack.name}</strong>: {attack.damage || "N/A"}{" "}
-                    dégâts ({attack.cost?.join(", ") || "N/A"})
+                    <strong>{attack.name}</strong>: {attack.damage || "N/A"} dégâts ({attack.cost?.join(", ") || "N/A"})
                   </li>
                 ))}
               </ul>

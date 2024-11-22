@@ -2,15 +2,29 @@ import { useState } from "react";
 import Modal from "./Modal";
 import axios from "axios";
 
+interface Card {
+  id: string;
+  name: string;
+  images: {
+    small: string;
+    large: string;
+  };
+}
+
+interface CardProps {
+  card: Card;
+  openModal: (card: Card) => void;
+}
+
 function App() {
-  const [selectedCard, setSelectedCard] = useState(null);
+  const [selectedCard, setSelectedCard] = useState<Card | null>(null);
   const [page, setPage] = useState(1);
   const [query, setQuery] = useState("");
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState<Card[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const openModal = (card: any) => {
+  const openModal = (card: Card) => {
     setSelectedCard(card);
   };
 
@@ -23,12 +37,13 @@ function App() {
     setIsLoading(true);
     setCards([]);
     try {
-      const response = await axios.get(
+      const response = await axios.get<{data: Card[]}>(
         `https://api.pokemontcg.io/v2/cards?q=name:${query}`,
         { headers: { "X-Api-Key": "162fed96-0003-41b1-a76c-bcca89a61550" } }
       );
       setCards(response.data.data);
-    } catch (err) {
+    }catch (err) {
+      console.error(err);
       setError("Une erreur s'est produite. Veuillez réessayer.");
     } finally {
       setIsLoading(false);
@@ -71,9 +86,9 @@ function App() {
         </div>
       )}
       <div className="card-container">
-        {cards.map((card: any) => (
-          <Card key={card.id} card={card} openModal={openModal} />
-        ))}
+      {cards.map((card: Card) => (
+  <Card key={card.id} card={card} openModal={openModal} />
+))}
       </div>
       <Modal card={selectedCard} onClose={closeModal} />
       <div style={{ textAlign: "center", marginTop: "20px" }}>
@@ -89,7 +104,7 @@ function App() {
   );
 }
 
-function Card({ card, openModal }: { card: any; openModal: (card: any) => void }) {
+function Card({ card, openModal }: CardProps) {
   const [isImageLoading, setIsImageLoading] = useState(true);
 
   return (
