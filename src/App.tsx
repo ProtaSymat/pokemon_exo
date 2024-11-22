@@ -17,7 +17,7 @@ interface CardProps {
 }
 
 function App() {
-  const [selectedCard, setSelectedCard] = useState<Card | null>(null)
+  let [selectedCard, setSelectedCard] = useState<Card | null>(null)
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
   const [cards, setCards] = useState<Card[]>([])

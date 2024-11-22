@@ -3,33 +3,32 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  build:
+  build-and-lint:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
 
-      - name: Afficher un message
-        run: echo "La pipeline CI est exécutée avec succès !"
-
-  run-linters:
-    name: Run Prettier and ESLint
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
           node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm install
+
+      - name: Check TypeScript types
+        run: npx tsc --noEmit
 
       - name: Check formatting with Prettier
         run: npx prettier --check .
 
       - name: Lint with ESLint
         run: npx eslint .
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Afficher un message
+        run: echo "La pipeline CI est exécutée avec succès !"
