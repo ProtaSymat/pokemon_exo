@@ -33,11 +33,11 @@ jobs:
 
       # Ajouts pour SSH
       - name: Setup SSH Agent
-        uses: webfactory/ssh-agent@v0.5.3
+        uses: webfactory/ssh-agent@v0.0.9
         with:
           ssh-private-key: ${{ secrets.SERVEUR_POKEMON_MATHYS }}
 
-      - name: Update known_hosts
+      - name: Adding known_hosts
         run: ssh-keyscan -H 151.80.58.182 >> ~/.ssh/known_hosts
 
       - name: Execute command on remote server
