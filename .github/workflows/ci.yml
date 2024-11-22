@@ -32,13 +32,9 @@ jobs:
         run: echo "Tout est bon"
 
       # Ajouts pour SSH
-      - name: Setup SSH Agent
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.SERVEUR_POKEMON_MATHYS }}
-
-      - name: Adding known_hosts
+      - name: Add remote server to known_hosts
         run: ssh-keyscan -H 151.80.58.182 >> ~/.ssh/known_hosts
 
-      - name: Execute command on remote server
+      # Création d'un fichier
+      - name: List files on remote server
         run: ssh debian@151.80.58.182 "ls"
