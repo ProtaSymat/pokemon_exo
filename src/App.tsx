@@ -2,9 +2,18 @@ import { useState } from 'react'
 import Modal from './Modal'
 import axios from 'axios'
 
+interface Attack {
+  name: string
+  damage: string
+  cost: string[]
+}
+
 interface PokemonCard {
   id: string
   name: string
+  hp: string
+  types?: string[]
+  attacks?: Attack[]
   images: {
     small: string
     large: string
@@ -37,7 +46,7 @@ function App() {
     setIsLoading(true)
     setCards([])
     try {
-      const response = await axios.get<{ data: Card[] }>(
+      const response = await axios.get<{ data: PokemonCard[] }>(
         `https://api.pokemontcg.io/v2/cards?q=name:${query}`,
         { headers: { 'X-Api-Key': '162fed96-0003-41b1-a76c-bcca89a61550' } },
       )
