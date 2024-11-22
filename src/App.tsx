@@ -2,7 +2,7 @@ import { useState } from 'react'
 import Modal from './Modal'
 import axios from 'axios'
 
-interface Card {
+interface PokemonCard {
   id: string
   name: string
   images: {
@@ -12,19 +12,19 @@ interface Card {
 }
 
 interface CardProps {
-  card: Card
-  openModal: (card: Card) => void
+  card: PokemonCard 
+  openModal: (card: PokemonCard ) => void
 }
 
 function App() {
-  const [selectedCard, setSelectedCard] = useState<Card | null>(null)
+  const [selectedCard, setSelectedCard] = useState<PokemonCard  | null>(null)
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
-  const [cards, setCards] = useState<Card[]>([])
+  const [cards, setCards] = useState<PokemonCard []>([])
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const openModal = (card: Card) => {
+  const openModal = (card: PokemonCard ) => {
     setSelectedCard(card)
   }
 
@@ -86,7 +86,7 @@ function App() {
         </div>
       )}
       <div className="card-container">
-        {cards.map((card: Card) => (
+        {cards.map((card: PokemonCard ) => (
           <Card key={card.id} card={card} openModal={openModal} />
         ))}
       </div>
