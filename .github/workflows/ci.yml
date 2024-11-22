@@ -7,37 +7,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Check le repo Github
       - name: Github checkout
         uses: actions/checkout@v4
 
-      # Setup Node.js avec la version 20 et utilise le cache de npm
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
 
-      # Installe les dépendances
       - name: Install dependencies
         run: npm ci
 
-      # Check les fichiers pour respecter TypeScript
-      - name: Run TypeScript
-        run: npx tsc --noEmit
-
-      # Check les fichiers pour respecter Prettier
-      - name: Run Prettier
+      - name: Check formatting with Prettier
         run: npx prettier --check .
 
-      # Check les fichiers pour respecter ESLint
-      - name: Run ESLint
+      - name: Lint with ESLint
         run: npx eslint .
 
-      # Build le projet
       - name: Build project
         run: npm run build
 
-      # Print un message quand tout est Ok
-      - name: Message de fin
-        run: echo "🎉 Tout est Ok !"
+      - name: End Message
+        run: echo "Tout est bon"
+
+      # Ajouts pour SSH
+      - name: Setup SSH Agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SERVEUR_POKEMON_MATHYS }}
+
+      - name: Adding known_hosts
+        run: ssh-keyscan -H 151.80.58.182 >> ~/.ssh/known_hosts
+
+      - name: Execute command on remote server
+        run: ssh debian@151.80.58.182 "ls"

@@ -2,9 +2,18 @@ import { useState } from 'react'
 import Modal from './Modal'
 import axios from 'axios'
 
-interface Card {
+interface Attack {
+  name: string
+  damage: string
+  cost: string[]
+}
+
+interface PokemonCard {
   id: string
   name: string
+  hp: string
+  types?: string[]
+  attacks?: Attack[]
   images: {
     small: string
     large: string
@@ -12,19 +21,19 @@ interface Card {
 }
 
 interface CardProps {
-  card: Card
-  openModal: (card: Card) => void
+  card: PokemonCard
+  openModal: (card: PokemonCard) => void
 }
 
 function App() {
-  let [selectedCard, setSelectedCard] = useState<Card | null>(null)
-  let [page, setPage] = useState(1)
+  const [selectedCard, setSelectedCard] = useState<PokemonCard | null>(null)
+  const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
-  const [cards, setCards] = useState<Card[]>([])
+  const [cards, setCards] = useState<PokemonCard[]>([])
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const openModal = (card: Card) => {
+  const openModal = (card: PokemonCard) => {
     setSelectedCard(card)
   }
 
@@ -37,7 +46,7 @@ function App() {
     setIsLoading(true)
     setCards([])
     try {
-      const response = await axios.get<{ data: Card[] }>(
+      const response = await axios.get<{ data: PokemonCard[] }>(
         `https://api.pokemontcg.io/v2/cards?q=name:${query}`,
         { headers: { 'X-Api-Key': '162fed96-0003-41b1-a76c-bcca89a61550' } },
       )
@@ -86,7 +95,7 @@ function App() {
         </div>
       )}
       <div className="card-container">
-        {cards.map((card: Card) => (
+        {cards.map((card: PokemonCard) => (
           <Card key={card.id} card={card} openModal={openModal} />
         ))}
       </div>
