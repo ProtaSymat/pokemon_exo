@@ -22,7 +22,7 @@ jobs:
         run: ssh-keyscan -H 151.80.58.182 >> ~/.ssh/known_hosts
 
       - name: List files on remote server
-        run: ssh debian@151.80.58.182 "echo 'test'"
+        run: ssh debian@151.80.58.182 "echo 'modif'"
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
