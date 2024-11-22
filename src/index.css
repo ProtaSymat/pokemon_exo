@@ -138,10 +138,6 @@ button:focus-visible {
   background-size: cover;
 }
 
-
-
-
-
 @keyframes spin {
   0% {
     transform: rotate(0deg);
@@ -150,7 +146,6 @@ button:focus-visible {
     transform: rotate(360deg);
   }
 }
-
 
 .modal-overlay {
   position: fixed;
@@ -178,7 +173,9 @@ button:focus-visible {
   gap: 20px;
   transform: translateY(-100%);
   opacity: 0;
-  transition: transform 1s ease-out, opacity 0.2s ease-out;
+  transition:
+    transform 1s ease-out,
+    opacity 0.2s ease-out;
 }
 
 .modal-slide-in {
@@ -201,11 +198,11 @@ button:focus-visible {
   cursor: pointer;
 }
 
-.modal-body{
+.modal-body {
   display: flex;
-    flex-direction: row;
-    height: 100%;
-    width: 100%;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
 }
 
 .modal-card {
@@ -220,10 +217,10 @@ button:focus-visible {
   flex: 2;
   font-family: Arial, sans-serif;
   padding-left: 100px;
-    align-items: start;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  align-items: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .modal-details h2 {
