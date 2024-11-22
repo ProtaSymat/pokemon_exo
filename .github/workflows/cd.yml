@@ -47,4 +47,4 @@ jobs:
           echo "Fichiers copiés avec succès."
 
       - name: Message de fin
-        run: echo "🎉 Déploiement réussi !"
+        run: echo "🎉 Déploiement réussi ! "
