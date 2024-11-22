@@ -35,7 +35,7 @@ jobs:
       - name: Setup SSH Agent
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+          ssh-private-key: ${{ secrets.SERVEUR_POKEMON_MATHYS }}
 
       - name: Update known_hosts
         run: ssh-keyscan -H 151.80.58.182 >> ~/.ssh/known_hosts
