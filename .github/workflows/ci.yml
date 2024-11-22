@@ -33,7 +33,7 @@ jobs:
 
       # Ajouts pour SSH
       - name: Setup SSH Agent
-        uses: webfactory/ssh-agent@v0.0.9
+        uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{ secrets.SERVEUR_POKEMON_MATHYS }}
 
