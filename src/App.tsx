@@ -12,19 +12,19 @@ interface PokemonCard {
 }
 
 interface CardProps {
-  card: PokemonCard 
-  openModal: (card: PokemonCard ) => void
+  card: PokemonCard
+  openModal: (card: PokemonCard) => void
 }
 
 function App() {
-  const [selectedCard, setSelectedCard] = useState<PokemonCard  | null>(null)
+  const [selectedCard, setSelectedCard] = useState<PokemonCard | null>(null)
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
-  const [cards, setCards] = useState<PokemonCard []>([])
+  const [cards, setCards] = useState<PokemonCard[]>([])
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const openModal = (card: PokemonCard ) => {
+  const openModal = (card: PokemonCard) => {
     setSelectedCard(card)
   }
 
@@ -86,7 +86,7 @@ function App() {
         </div>
       )}
       <div className="card-container">
-        {cards.map((card: PokemonCard ) => (
+        {cards.map((card: PokemonCard) => (
           <Card key={card.id} card={card} openModal={openModal} />
         ))}
       </div>
