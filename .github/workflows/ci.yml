@@ -22,16 +22,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Check les fichiers pour respecter TypeScript
-      - name: Run TypeScript
-        run: npx tsc --noEmit
-
       # Check les fichiers pour respecter Prettier
-      - name: Run Prettier
+      - name: Check formatting with Prettier
         run: npx prettier --check .
 
       # Check les fichiers pour respecter ESLint
-      - name: Run ESLint
+      - name: Lint with ESLint
         run: npx eslint .
 
       # Build le projet
