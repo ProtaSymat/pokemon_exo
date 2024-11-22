@@ -1,0 +1,47 @@
+name: CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Github checkout
+        uses: actions/checkout@v4
+
+      - name: Start SSH Agent
+        uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SERVEUR_POKEMON_MATHYS }}
+
+      - name: Add remote server to known_hosts
+        run: ssh-keyscan -H 151.80.58.182 >> ~/.ssh/known_hosts
+
+      - name: List files on remote server
+        run: ssh debian@151.80.58.182 "echo 'test'"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy files to remote server via SCP
+        run: |
+          scp -r dist/* debian@151.80.58.182:/home/debian/pokedex_temp_mathys  # Copiez les fichiers de 'dist' vers le serveur
+
+      - name: Move files to /var/www/pokedex
+        run: ssh debian@151.80.58.182 "sudo mv /home/debian/pokedex_temp_mathys/* /var/www/mathys && sudo chown -R www-data:www-data /var/www/mathys"
+
+      - name: Message de fin
+        run: echo "🎉 Déploiement réussi !"
