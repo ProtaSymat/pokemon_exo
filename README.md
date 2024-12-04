@@ -1,11 +1,11 @@
-#Documentation du Projet Pokedex: CI/CD Pipeline
-##Introduction
+# Documentation du Projet Pokedex: CI/CD Pipeline
+## Introduction
 Le projet Pokedex est une application web dynamique développée avec React et TypeScript, conçue pour permettre aux utilisateurs d'explorer, de rechercher et d'afficher des informations détaillées sur les Pokémon. Un pipeline d'intégration continue et de déploiement continu (CI/CD) est intégré pour optimiser le processus de développement, garantir la qualité du code et automatiser le déploiement de l'application.
 
-##Objectifs du Pipeline CI/CD
+## Objectifs du Pipeline CI/CD
 Le pipeline CI/CD joue un rôle crucial dans le cycle de vie du développement de l'application, en se concentrant sur les aspects suivants :
 
-##Contrôle de Qualité du Code
+## Contrôle de Qualité du Code
 Assure que tout le code soumis respecte les standards de qualité définis et adhère aux meilleures pratiques.
 Tests Automatisés
 Exécute une gamme complète de tests, incluant les tests d'intégration et end-to-end, pour confirmer que l'application fonctionne correctement dans divers scénarios.
